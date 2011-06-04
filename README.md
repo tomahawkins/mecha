@@ -12,6 +12,8 @@ Mecha renders models with [POV-Ray](http:/povray.org/).
 
 0.0.5    ???
 
+- Created POVRay class.
+- Decoupled POVRay from solid primitives.
 - Example executables (Marc Weber).
 
 0.0.4    11/25/09

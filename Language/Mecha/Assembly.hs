@@ -79,25 +79,25 @@ render file h w camera (Asm a) = do
   ln image link
   a <- doesFileExist image
   when (not a) $ do
-    writeFile (file ++ ".pov") povray
+    writeFile (file ++ ".pov") povray'
     readProcess "povray" ["-D", "-V", "+H" ++ show h, "+W" ++ show w, "+I" ++ file ++ ".pov", "+O" ++ image] ""
     --rm $  file ++ ".pov"
     return ()
   where
-  checksum = printf "%08X" $ crc32 $ BS.pack $ show (h, w, povray)
+  checksum = printf "%08X" $ crc32 $ BS.pack $ show (h, w, povray')
   image = checksum ++ ".png"
   link  = file     ++ ".png"
   r :: Double
   r = fromIntegral w / fromIntegral h
-  povray :: String
-  povray = unlines
+  povray' :: String
+  povray' = unlines
     [ "#include \"colors.inc\""
     , "background { color White }"
     , printf "light_source { <100, 100, -100> color White }"
     , case camera of
         Perspective  -> printf "camera { perspective location <0, 0, 0> right x*%f direction <0, 0, 1> }" r
         Orthographic -> printf "camera { orthographic location <0,0,-100> up y*1 right x*%f }" r
-    ] ++ concatMap show a
+    ] ++ concatMap povray a
  
 rm  :: FilePath -> IO ()
 rm f = system ("rm -f " ++ f) >> return ()

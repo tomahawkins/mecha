@@ -4,6 +4,7 @@ module Language.Mecha.Types
   , Scaleable (..)
   , Colorable (..)
   , Setable   (..)
+  , POVRay    (..)
   , moveX
   , moveY
   , moveZ
@@ -12,10 +13,7 @@ module Language.Mecha.Types
   , scaleY
   , scaleZ
   , unions
-  , debug
   ) where
-
-import System.IO.Unsafe
 
 type Vector = (Double, Double, Double)
 type Vertex = Vector
@@ -63,5 +61,6 @@ class Setable a where
 unions :: Setable a => [a] -> a
 unions = foldl1 union
 
-debug :: Show a => String -> a -> b -> b
-debug m a b = unsafePerformIO (putStrLn (m ++ ": " ++ show a) >> return b)
+class POVRay a where
+  povray :: a -> String
+
