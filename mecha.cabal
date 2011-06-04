@@ -1,0 +1,58 @@
+name:    mecha
+version: 0.0.5
+
+category: Language
+
+synopsis: Mecha is a solid modeling language geared for machine design.
+
+description: Mecha is a constructive solid modeling language based on
+             functional-representation primitives.
+
+author:     Tom Hawkins <tomahawkins@gmail.com>
+maintainer: Tom Hawkins <tomahawkins@gmail.com>
+
+license:      BSD3
+license-file: LICENSE
+
+homepage: http://tomahawkins.org
+
+build-type:    Simple
+cabal-version: >= 1.6
+
+extra-source-files:
+  RELEASE-NOTES
+
+library
+
+    build-depends:
+        base       >= 4       && < 5,
+        process    >= 1.0.1.1 && < 1.1,
+        digest     >= 0.0.0.8 && < 0.0.1,
+        bytestring >= 0.9.1.4 && < 0.9.2,
+        directory  >= 1.0.0.2 && < 1.0.1
+
+    exposed-modules:
+        Language.Mecha
+        Language.Mecha.Assembly
+        Language.Mecha.Solid
+        Language.Mecha.Types
+
+    extensions:
+
+    ghc-options:       -W -fwarn-tabs
+
+executable     mecha-csg
+  main-is:     CSG.hs
+  hs-source-dirs: examples,.
+
+executable        mecha-bent-axis
+  main-is:        BentAxis.hs
+  hs-source-dirs: examples,.
+  other-modules:  Axle,
+                  BarrelGroup,
+                  Piston,
+                  TimingPlate
+
+source-repository head
+    type:     darcs
+    location: http://patch-tag.com/r/tomahawkins/mecha/pullrepo
