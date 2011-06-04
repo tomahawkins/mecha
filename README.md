@@ -1,26 +1,38 @@
-mecha 0.0.5    ???
+# Mecha
+
+Mecha is an constructive solid modeling language embedded in [Haskell](http://haskell.org/).
+
+Mecha renders models with [POV-Ray](http:/povray.org/).
+
+## Links
+
+- [Mecha Hackage Library](http://hackage.haskell.org/package/mecha)
+
+# Release Notes
+
+0.0.5    ???
 
 - Example executables (Marc Weber).
 
-mecha 0.0.4    11/25/09
+0.0.4    11/25/09
 
 - Added animate function to build animations with ffmpeg.
 - View renders 4 standard CAD views and a html page.
 
-mecha 0.0.3    11/03/09
+0.0.3    11/03/09
 
 - Replaced OpenGL and SDL with POVRay. 
 
-mecha 0.0.2    11/01/09
+0.0.2    11/01/09
 
 - Made Asm monadless.
 
-mecha 0.0.1    10/31/09
+0.0.1    10/31/09
 
 - Moved solid representation from octrees to f-rep.
 - Created Asm monadic layer for defining parts and assemblies.
 
-mecha 0.0.0    10/22/09
+0.0.0    10/22/09
 
 - Initial release (does nothing except draws a blue ball).
 

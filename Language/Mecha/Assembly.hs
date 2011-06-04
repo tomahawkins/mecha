@@ -11,11 +11,9 @@ module Language.Mecha.Assembly
 import Control.Monad
 import qualified Data.ByteString.Char8 as BS
 import Data.Digest.CRC32
-import Data.List
 import Language.Mecha.Solid
 import Language.Mecha.Types
 import System.Directory
-import System.IO
 import System.Process
 import Text.Printf
 
