@@ -1,5 +1,5 @@
 -- | A rotational barrel kit.
-module BarrelGroup
+module Language.Mecha.Examples.BarrelGroup
   ( BarrelGroup (..)
   , barrelGroup
   ) where
@@ -16,8 +16,8 @@ data BarrelGroup = BarrelGroup
   }
 
 -- | Barrel group oriented on z-axis resting on x-y plane, with barrel centered on positive x-axis.
-barrelGroup :: BarrelGroup -> Asm
-barrelGroup b = part $ difference a $ radial (const c) (barrelGroupN b)
+barrelGroup :: BarrelGroup -> Solid
+barrelGroup b = difference a $ radial (const c) (barrelGroupN b)
   where
   a = cylinder (barrelGroupD b) (barrelGroupH b)
   c = moveX (barrelGroupOrbitalD b / 2) $ moveZ (- barrelGroupH b) $ cylinder (barrelGroupBarrelD b) (barrelGroupH b * 3)

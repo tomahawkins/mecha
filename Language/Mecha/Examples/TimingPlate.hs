@@ -1,5 +1,5 @@
 -- | A timing plate with high and low pressure kidney ports.
-module TimingPlate
+module Language.Mecha.Examples.TimingPlate
   ( TimingPlate (..)
   , timingPlate
   ) where
@@ -16,8 +16,8 @@ data TimingPlate = TimingPlate
   }
 
 -- | Timing plate oriented on z-axis resting on x-y plane, with port kidneys left and right of the y-z plane.
-timingPlate :: TimingPlate -> Asm
-timingPlate t = part $ difference plate trim
+timingPlate :: TimingPlate -> Solid
+timingPlate t = difference plate trim
   where
   plate = cylinder (timingPlateD t) (timingPlateT t)
   k = kidney ((timingPlateKidneyD t + timingPlateKidneyW t) / 2) ((timingPlateKidneyD t - timingPlateKidneyW t) / 2) (timingPlateTransitionA t)

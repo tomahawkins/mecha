@@ -1,5 +1,5 @@
 -- | Piston.
-module Piston
+module Language.Mecha.Examples.Piston
   ( Piston (..)
   , piston
   ) where
@@ -14,8 +14,8 @@ data Piston = Piston
   }
 
 -- | Piston oriented on z-axis with ball joint centered at origin.
-piston :: Piston -> Asm
-piston p = part $ unions [ball, moveZ (pistonL p) ball, shaft]
+piston :: Piston -> Solid
+piston p = unions [ball, moveZ (pistonL p) ball, shaft]
   where
   ball = sphere $ pistonD p
   shaft = cylinder (pistonShaftD p) (pistonL p)

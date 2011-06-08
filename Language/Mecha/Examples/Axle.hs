@@ -1,5 +1,5 @@
 -- | Axle and ball joint carrier.
-module Axle
+module Language.Mecha.Examples.Axle
   ( Axle (..)
   , axle
   ) where
@@ -15,8 +15,8 @@ data Axle = Axle
   }
 
 -- | Axle oriented on z-axis resting on x-y plane.
-axle :: Axle -> Asm
-axle a = part $ union shaft carrier
+axle :: Axle -> Solid
+axle a = union shaft carrier
   where
   carrier = cylinder (carrierD a) (carrierT a)
   shaft   = difference (cylinder (axleD a) (axleL a + carrierT a)) spines

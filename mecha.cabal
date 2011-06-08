@@ -28,6 +28,11 @@ library
     exposed-modules:
         Language.Mecha
         Language.Mecha.Examples.CSG
+        Language.Mecha.Examples.Axle
+        Language.Mecha.Examples.BarrelGroup
+        Language.Mecha.Examples.Piston
+        Language.Mecha.Examples.TimingPlate
+        Language.Mecha.Examples.Pump
         Language.Mecha.Export
         Language.Mecha.Solid
         Language.Mecha.Types
