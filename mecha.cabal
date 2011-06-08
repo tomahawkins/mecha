@@ -38,7 +38,10 @@ library
 
     extensions:
 
-    ghc-options:       -W -fwarn-tabs
+    -- includes:        opencsg.h
+    -- extra-libraries: opencsg
+
+    ghc-options: -W
 
 -- executable     mecha-csg
 --   main-is:     CSG.hs

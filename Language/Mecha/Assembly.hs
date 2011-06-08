@@ -1,5 +1,5 @@
 module Language.Mecha.Assembly
-  ( Asm
+  ( Assembly
   , part
   , assemble
   , Scene
@@ -17,28 +17,38 @@ import System.Directory
 import System.Process
 import Text.Printf
 
--- | The Asm holds all the parts and sub-assemblies.
-newtype Asm = Asm [Solid] deriving Eq
+-- | An Assembly holds all the parts and sub-assemblies.
+data Assembly
+  = Assembly [Assembly]
+  | Part Solid
+  | Label String Assembly
+  deriving Eq
 
-instance Colorable Asm where
-  color c (Asm a) = Asm $ map (color c) a
+-- | General assembly.
+class Assemble a where assemble :: a -> Assembly
 
-instance Moveable Asm where
-  move a (Asm b)    = Asm $ map (move a) b
-  rotateX a (Asm b) = Asm $ map (rotateX a) b
-  rotateY a (Asm b) = Asm $ map (rotateY a) b
-  rotateZ a (Asm b) = Asm $ map (rotateZ a) b
+instance Assemble Assembly where assemble = id
+instance Assemble Solid    where assemble = Part
+instance Assemble a => Assemble [a] where assemble = Assembly . map assemble
 
-instance Scaleable Asm where
-  scale v (Asm a) = Asm $ map (scale v) a
+-- | A general model transformer.
+class    SMap a        where smap :: (Solid -> Solid) -> a -> a
+instance SMap Solid    where smap = ($)
+instance SMap Assembly where
+  smap f a = case a of
+    Assembly a -> Assembly $ map (smap f) a
+    Part     a -> Part $ smap f a
+    Label  n a -> Label n $ smap f a
 
--- | Place a part (Solid) in an assembly.
-part :: Solid -> Asm
-part a = Asm [a]
+instance Colorable Assembly where color c = smap . color c
 
--- | Assemble multiple sub-assemblies together.
-assemble :: [Asm] -> Asm
-assemble a = Asm $ concat [ a | Asm a <- a ]
+instance Moveable  Assembly where
+  move    a = smap . move    a
+  rotateX a = smap . rotateX a
+  rotateY a = smap . rotateY a
+  rotateZ a = smap . rotateZ a
+
+instance Scaleable Assembly where scale v = smap . scale v
 
 -- | A Scene is a light position, camera configuration, and an assembly.
 type Scene = (Camera, Asm)
