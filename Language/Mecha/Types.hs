@@ -4,8 +4,6 @@ module Language.Mecha.Types
   , Scaleable (..)
   , Colorable (..)
   , Setable   (..)
-  , POVRay    (..)
-  , OpenSCAD  (..)
   , moveX
   , moveY
   , moveZ
@@ -61,10 +59,4 @@ class Setable a where
 
 unions :: Setable a => [a] -> a
 unions = foldl1 union
-
-class POVRay a where
-  povray :: a -> String
-
-class OpenSCAD a where
-  openSCAD :: a -> String
 

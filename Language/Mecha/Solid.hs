@@ -1,5 +1,7 @@
 module Language.Mecha.Solid
-  ( Solid
+  ( Solid     (..)
+  , Primitive (..)
+  , Transform (..)
   , sphere
   , cone
   , box
@@ -10,7 +12,6 @@ module Language.Mecha.Solid
   ) where
 
 import Language.Mecha.Types
-import Text.Printf
 
 data Solid
   = Primitive [Transform] Color Primitive
@@ -61,34 +62,8 @@ instance Colorable Solid where
     Intersection a b     -> Intersection  (color c a) (color c b)
     Difference   a b     -> Difference    (color c a) (color c b)
 
-instance POVRay Solid where
-  povray a = case a of
-    Primitive t (r, g, b, o) a -> printf "%s { %s\n%s%s}\n" a1 a2 trans color
-      where
-      color :: String
-      color = printf "  pigment { rgbt <%f, %f, %f, %f> }\n" r g b o
-      trans :: String
-      trans = concatMap povray t
-      a1 :: String
-      a2 :: String
-      (a1, a2) = case a of
-        Sphere d     -> ("sphere", printf "<0, 0, 0>, %f" (d / 2))
-        Cone bd td h -> ("cone",   printf "<0, 0, 0>, %f <0, %f, 0>, %f" (bd / 2) h (td / 2))
-        Box (x1, x2) (y1, y2) (z1, z2) -> ("box", printf "<%f, %f, %f>, <%f, %f, %f>" x1 z1 y1 x2 z2 y2)
-    Union        a b   -> printf "merge        {\n%s%s}\n" (povray a) (povray b)
-    Intersection a b   -> printf "intersection {\n%s%s}\n" (povray a) (povray b)
-    Difference   a b   -> printf "difference   {\n%s%s}\n" (povray a) (povray b)
-
-instance POVRay Transform where
-  povray a = case a of
-    Scale (x, y, z) -> printf "  scale <%f, %f, %f>\n" x z y
-    Move  (x, y, z) -> printf "  translate <%f, %f, %f>\n" x z y
-    RotateX a       -> printf "  rotate <%f, 0, 0>\n" (-a * 180 / pi)
-    RotateY a       -> printf "  rotate <0, 0, %f>\n" (-a * 180 / pi)
-    RotateZ a       -> printf "  rotate <0, %f, 0>\n" (-a * 180 / pi)
-
 primitive :: Primitive -> Solid
-primitive = Primitive [] (0.5, 0.5, 0.5, 0)
+primitive = Primitive [] (0.5, 0.5, 0.5, 1)
 
 -- | A sphere with diameter, centered at origin.
 sphere :: Double -> Solid

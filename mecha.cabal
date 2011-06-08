@@ -1,5 +1,5 @@
 name:    mecha
-version: 0.0.6
+version: 0.1.0
 
 category: Language
 
@@ -21,25 +21,19 @@ cabal-version: >= 1.6
 library
 
     build-depends:
-        base       >= 4       && < 5,
-        process    >= 1.0.1.1 && < 1.1,
-        digest     >= 0.0.0.8 && < 0.0.1,
-        bytestring >= 0.9.1.4 && < 0.9.2,
-        directory  >= 1.0.1.1 && < 1.2,
-        OpenGL     >= 2.4.0.0 && < 2.5,
-        GLUT       >= 2.2.2.0 && < 2.3
+        base       >= 4       && < 5
+--      process    >= 1.0.1.1 && < 1.1,
+--      digest     >= 0.0.0.8 && < 0.0.1,
+--      bytestring >= 0.9.1.4 && < 0.9.2,
+--      directory  >= 1.0.1.1 && < 1.2,
+--      OpenGL     >= 2.4.0.0 && < 2.5,
+--      GLUT       >= 2.2.2.0 && < 2.3
 
     exposed-modules:
         Language.Mecha
-        Language.Mecha.Assembly
+        Language.Mecha.Export
         Language.Mecha.Solid
         Language.Mecha.Types
-        Language.Mecha.Visual
-
-    extensions:
-
-    -- includes:        opencsg.h
-    -- extra-libraries: opencsg
 
     ghc-options: -W
 
