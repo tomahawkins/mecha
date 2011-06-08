@@ -3,11 +3,11 @@ version: 0.1.0
 
 category: Language
 
-synopsis: A constructive solid geometry modeling language.
+synopsis: A constructive solid geometry (CSG) modeling language.
 
 description:
-  Mecha is a constructive solid geometry modeling language.
-  Mecha exports POV-Ray and OpenSCAD models.
+  Mecha is a constructive solid geometry modeling language
+  and compiles to POV-Ray and OpenSCAD.
 
 author:     Tom Hawkins <tomahawkins@gmail.com>
 maintainer: Tom Hawkins <tomahawkins@gmail.com>
@@ -28,11 +28,6 @@ library
     exposed-modules:
         Language.Mecha
         Language.Mecha.Examples.CSG
-        Language.Mecha.Examples.Axle
-        Language.Mecha.Examples.BarrelGroup
-        Language.Mecha.Examples.Piston
-        Language.Mecha.Examples.TimingPlate
-        Language.Mecha.Examples.Pump
         Language.Mecha.Export
         Language.Mecha.Solid
         Language.Mecha.Types

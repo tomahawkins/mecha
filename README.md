@@ -1,8 +1,8 @@
 # Mecha
 
-Mecha is an constructive solid modeling language embedded in [Haskell](http://haskell.org/).
+Mecha is an constructive solid geometry modeling language embedded in [Haskell](http://haskell.org/).
 
-Mecha renders models with [POV-Ray](http:/povray.org/).
+Mecha compiles models to [POV-Ray](http://povray.org/) and [OpenSCAD](http://openscad.org/).
 
 ## Links
 
@@ -10,7 +10,7 @@ Mecha renders models with [POV-Ray](http:/povray.org/).
 
 # Release Notes
 
-0.1.0    ???
+0.1.0    06/08/11
 
 - Created OpenSCAD generator.
 - Created 'mecha-examples' executable.
