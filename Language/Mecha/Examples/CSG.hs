@@ -12,8 +12,8 @@ csg = unions
   , move (-4, 4, 0) $ color (0.8, 0.0, 0.0, 1) $ cube'
   , move ( 0, 4, 0) $ color (0.0, 0.8, 0.0, 1) $ cyl3
   , move ( 0, 8, 0) $ color (0.0, 0.8, 0.0, 1) $ cyl
-  , move ( 0,12, 0) $ color (0.0, 0.8, 0.0, 1) $ rotateX (pi/2) cyl
-  , move ( 0,16, 0) $ color (0.0, 0.8, 0.0, 1) $ rotateY (pi/2) cyl
+  , move (-4, 8, 0) $ color (0.0, 0.8, 0.0, 1) $ rotateX (pi/2) cyl
+  , move ( 4, 8, 0) $ color (0.0, 0.8, 0.0, 1) $ rotateY (pi/2) cyl
   ]
 
 sphere' = sphere 2

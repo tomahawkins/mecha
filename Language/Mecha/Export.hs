@@ -29,7 +29,15 @@ povray a = unlines
       (a1, a2) = case a of
         Sphere d     -> ("sphere", printf "<0, 0, 0>, %f" (d / 2))
         Cone bd td h -> ("cone",   printf "<0, 0, 0>, %f <0, %f, 0>, %f" (bd / 2) h (td / 2))
-        Box (x1, x2) (y1, y2) (z1, z2) -> ("box", printf "<%f, %f, %f>, <%f, %f, %f>" x1 z1 y1 x2 z2 y2)
+        Box (x1, x2) (y1, y2) (z1, z2) -> ("box", printf "<%f, %f, %f>, <%f, %f, %f>" xmin zmin ymin xmax zmax ymax)
+          where
+          xmin = min x1 x2
+          xmax = max x1 x2
+          ymin = min y1 y2
+          ymax = max y1 y2
+          zmin = min z1 z2
+          zmax = max z1 z2
+	Torus d1 d2  -> ("torus", printf "%f, %f" (d1 / 2) (d2 / 2))
     Union        a b   -> printf "merge        {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
     Intersection a b   -> printf "intersection {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
     Difference   a b   -> printf "difference   {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
@@ -70,8 +78,8 @@ openSCAD a = unlines
 
       primitive :: Primitive -> String
       primitive a = case a of
-        Sphere d     -> printf "sphere(r = %f, $fs = 0.01);\n" (d / 2)
-        Cone bd td h -> printf "cylinder(h = %f, r1 = %f, r2 = %f, center = false, $fs = 0.01);\n" h (td / 2) (bd / 2)
+        Sphere d     -> printf "sphere(r = %f, $fn = 100);\n" (d / 2)
+        Cone bd td h -> printf "cylinder(h = %f, r1 = %f, r2 = %f, center = false, $fn = 100);\n" h (td / 2) (bd / 2)
         Box (x1, x2) (y1, y2) (z1, z2) -> printf "translate ([%f, %f, %f]) {\n\tcube(size = [%f, %f, %f], center = false);\n}\n" xmin ymin zmin (xmax - xmin) (ymax - ymin) (zmax - zmin)
           where
           xmin = min x1 x2
@@ -80,6 +88,7 @@ openSCAD a = unlines
           ymax = max y1 y2
           zmin = min z1 z2
           zmax = max z1 z2
+        Torus d1 d2 -> printf "rotate_extrude($fn = 100) translate([%f, 0, 0]) circle(%f, $fn = 100);" (d1 / 2) (d2 / 2)
 
 indent :: String -> String
 indent a = unlines [ "\t" ++ l | l <- lines a ]

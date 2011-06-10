@@ -9,6 +9,7 @@ module Language.Mecha.Solid
   , cylinder
   , tube
   , radial
+  , torus
   ) where
 
 import Language.Mecha.Types
@@ -24,6 +25,7 @@ data Primitive
   = Sphere Double                -- ^ Diameter.
   | Cone   Double Double Double  -- ^ Bottom diameter, top diameter, height.
   | Box (Double, Double) (Double, Double) (Double, Double)  -- ^ (x min, x max) (y min, ymax) (z min, z max).
+  | Torus  Double Double         -- ^ Major diameter, minor diameter.
   deriving Eq
 
 data Transform
@@ -94,4 +96,8 @@ box x y z = primitive $ Box x y z
 -- | Arranges a solid in a radial pattern.
 radial :: (Double -> Solid) -> Int -> Solid
 radial f n = unions [ rotateZ a $ f a | i <- [0 .. n - 1], let a = 2 * pi * fromIntegral i / fromIntegral n ]
+
+-- | A torus centered at the origin, aligned on the z-axis, with the major and minor diameters.
+torus :: Double -> Double -> Solid
+torus d1 d2 = primitive $ Torus d1 d2
 
