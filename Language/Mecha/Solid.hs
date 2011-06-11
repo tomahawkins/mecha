@@ -7,6 +7,7 @@ module Language.Mecha.Solid
   , box
   , cube
   , cylinder
+  , cylinder'
   , tube
   , radial
   , torus
@@ -85,6 +86,10 @@ cone bd td h = primitive $ Cone bd td h
 -- | A cylinder with base at the origin, given diameter and height.
 cylinder :: Double -> Double -> Solid
 cylinder d h = cone d d h
+
+-- | Same as cylinder, but centered at the origin.
+cylinder' :: Double -> Double -> Solid
+cylinder' d h = moveZ (- h / 2) $ cylinder d h
 
 -- | A hollow cylinder with base at the origin, given outer diameter, inner diamter, and height.
 tube od id h = difference (cylinder od h) (moveZ (-h) $ cylinder id (4 * h))

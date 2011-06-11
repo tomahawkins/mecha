@@ -10,7 +10,7 @@ Mecha compiles models to [POV-Ray](http://povray.org/) and [OpenSCAD](http://ope
 
 # Release Notes
 
-0.1.1    ???
+0.1.1    06/11/11
 
 - Added torus primitive.
 

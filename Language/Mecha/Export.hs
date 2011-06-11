@@ -65,22 +65,22 @@ openSCAD a = unlines
     Union        a b   -> printf "union()        {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
     Intersection a b   -> printf "intersection() {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
     Difference   a b   -> printf "difference()   {\n%s%s}\n" (indent $ solid a) (indent $ solid b)
-    Primitive t (r, g, b, o) p -> printf "color([%f, %f, %f, %f]) {\n%s}\n" r g b o $ indent $ transform $ reverse t
+    Primitive t (r, g, b, o) p -> printf "color([%f, %f, %f, %f]) %s\n" r g b o $ transform $ reverse t
       where
       transform :: [Transform] -> String
       transform a = case a of
         [] -> primitive p
-        Scale (x, y, z) : rest -> printf "scale ([%f, %f, %f])     {\n%s}\n" x y z          $ indent $ transform rest
-        Move  (x, y, z) : rest -> printf "translate ([%f, %f, %f]) {\n%s}\n" x y z          $ indent $ transform rest
-        RotateX a       : rest -> printf "rotate (%f, [1, 0, 0])   {\n%s}\n" (a * 180 / pi) $ indent $ transform rest
-        RotateY a       : rest -> printf "rotate (%f, [0, 1, 0])   {\n%s}\n" (a * 180 / pi) $ indent $ transform rest
-        RotateZ a       : rest -> printf "rotate (%f, [0, 0, 1])   {\n%s}\n" (a * 180 / pi) $ indent $ transform rest
+        Scale (x, y, z) : rest -> printf "scale ([%f, %f, %f]) %s"     x y z          $ transform rest
+        Move  (x, y, z) : rest -> printf "translate ([%f, %f, %f]) %s" x y z          $ transform rest
+        RotateX a       : rest -> printf "rotate (%f, [1, 0, 0]) %s"   (a * 180 / pi) $ transform rest
+        RotateY a       : rest -> printf "rotate (%f, [0, 1, 0]) %s"   (a * 180 / pi) $ transform rest
+        RotateZ a       : rest -> printf "rotate (%f, [0, 0, 1]) %s"   (a * 180 / pi) $ transform rest
 
       primitive :: Primitive -> String
       primitive a = case a of
         Sphere d     -> printf "sphere(r = %f, $fn = 100);\n" (d / 2)
         Cone bd td h -> printf "cylinder(h = %f, r1 = %f, r2 = %f, center = false, $fn = 100);\n" h (td / 2) (bd / 2)
-        Box (x1, x2) (y1, y2) (z1, z2) -> printf "translate ([%f, %f, %f]) {\n\tcube(size = [%f, %f, %f], center = false);\n}\n" xmin ymin zmin (xmax - xmin) (ymax - ymin) (zmax - zmin)
+        Box (x1, x2) (y1, y2) (z1, z2) -> printf "translate ([%f, %f, %f]) cube(size = [%f, %f, %f], center = false);\n" xmin ymin zmin (xmax - xmin) (ymax - ymin) (zmax - zmin)
           where
           xmin = min x1 x2
           xmax = max x1 x2
