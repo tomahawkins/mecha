@@ -1,14 +1,14 @@
 module Main (main) where
 
+import System.Process
+
 import Language.Mecha
 import Language.Mecha.Examples.CSG
 
 main :: IO ()
 main = do
+  putStrLn "Writing file csg.scad.  Opening with OpenSCAD ..."
   writeFile "csg.scad" $ openSCAD $ scaleAll 10 $ csg
-  putStrLn ""
-  putStrLn "Writing file: csg.scad"
-  putStrLn ""
-  putStrLn "Open with OpenSCAD, then click Design->Compile."
-  putStrLn ""
+  readProcess "OpenSCAD" ["csg.scad"] ""
+  return ()
 

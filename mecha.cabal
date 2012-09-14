@@ -1,5 +1,5 @@
 name:    mecha
-version: 0.1.1
+version: 0.1.2
 
 category: Language
 
@@ -18,17 +18,20 @@ license-file: LICENSE
 homepage: http://tomahawkins.org
 
 build-type:    Simple
-cabal-version: >= 1.6
+cabal-version: >= 1.8
 
 library
 
     build-depends:
-        base       >= 4       && < 5
+        base,
+        directory,
+        process
 
     exposed-modules:
         Language.Mecha
         Language.Mecha.Examples.CSG
         Language.Mecha.Export
+        Language.Mecha.Profile
         Language.Mecha.Solid
         Language.Mecha.Types
 
@@ -36,6 +39,12 @@ library
 
 executable mecha-examples
     main-is: MechaExamples.hs
+    hs-source-dirs: mains
+    build-depends:
+        base,
+        process,
+        mecha
+
  
 source-repository head
     type:     git

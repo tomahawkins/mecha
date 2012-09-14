@@ -79,7 +79,7 @@ openSCAD a = unlines
       primitive :: Primitive -> String
       primitive a = case a of
         Sphere d     -> printf "sphere(r = %f, $fn = 100);\n" (d / 2)
-        Cone bd td h -> printf "cylinder(h = %f, r1 = %f, r2 = %f, center = false, $fn = 100);\n" h (td / 2) (bd / 2)
+        Cone bd td h -> printf "cylinder(h = %f, r1 = %f, r2 = %f, center = false, $fn = 100);\n" h (bd / 2) (td / 2)
         Box (x1, x2) (y1, y2) (z1, z2) -> printf "translate ([%f, %f, %f]) cube(size = [%f, %f, %f], center = false);\n" xmin ymin zmin (xmax - xmin) (ymax - ymin) (zmax - zmin)
           where
           xmin = min x1 x2

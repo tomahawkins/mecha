@@ -92,6 +92,7 @@ cylinder' :: Double -> Double -> Solid
 cylinder' d h = moveZ (- h / 2) $ cylinder d h
 
 -- | A hollow cylinder with base at the origin, given outer diameter, inner diamter, and height.
+tube :: Double -> Double -> Double -> Solid
 tube od id h = difference (cylinder od h) (moveZ (-h) $ cylinder id (4 * h))
 
 -- | A box with ranges or X, Y, and Z positions.
